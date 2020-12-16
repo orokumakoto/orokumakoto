@@ -1,0 +1,5 @@
+from django import forms
+
+class postform1(forms.Form):
+    keyword=forms.CharField(max_length = 99,min_length = 1,required = True)
+    
