@@ -1,0 +1,17 @@
+from django import forms
+
+
+class student(forms.Form):
+    cname=forms.CharField(max_length=20, required= True)
+    cphone=forms.CharField(max_length=50, required= True)
+    caddr=forms.CharField(max_length=255, required= True)
+
+        
+        
+class memberform(forms.Form):
+    id=forms.IntegerField(max_value = 999999999)
+    name=forms.CharField(max_length=50, required= True , label = "姓名")
+    tel=forms.CharField(max_length=50, required= True)
+    addr=forms.CharField(max_length=50, required= True)
+
+
