@@ -1,0 +1,169 @@
+#爬蟲---統聯客運
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import time
+# import pytesseract
+# from PIL import Image,ImageEnhance
+# import os
+
+#=====================================演算法===================================
+
+# 1.利用ChromeDriver 呼叫網頁
+# 2.利用路徑與標籤輸入資料
+# 3.for 回圈選位子
+
+#==============================================================================
+
+browser=webdriver.Chrome()
+url="http://ordertickets.ubus.com.tw/"
+
+browser.get(url)
+time.sleep(2)
+
+
+browser.switch_to_frame('MainFrame')
+bar=browser.find_element_by_css_selector('#i_agree').click()
+check=browser.find_element_by_xpath('//body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/table[3]/tbody[1]/tr[5]/td[1]/form[1]/table[1]/tbody[1]/tr[1]/td[3]/img[1]').click()
+time.sleep(1)
+
+
+
+#==============================================================================
+#find_element_by_xxxx("")       ()間 " " で方がいい
+
+user=browser.find_element_by_name('UID')
+user.send_keys(input("請輸入身份證字號: "))
+
+num=browser.find_element_by_name('MobileNum')
+num.send_keys(input('請輸入手機號碼:'))
+
+passw=browser.find_element_by_name('CheckNum')
+passw.send_keys(input('請輸入驗證碼:'))
+
+sub=browser.find_element_by_xpath('//body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/form[1]/table[1]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/img[1]').click()
+time.sleep(1)
+
+
+area=browser.find_element_by_css_selector('table.BigTable tr:nth-child(23) td.Button_TD_TypeA:nth-child(1) a:nth-child(1) div:nth-child(1) > b:nth-child(1)').click()
+time.sleep(1)
+eki=browser.find_element_by_xpath('/html[1]/body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/table[3]/tbody[1]/tr[2]/td[1]/table[1]/tbody[1]/tr[1]/td[4]/form[1]/table[1]/tbody[1]/tr[1]/td[1]/a[1]/div[1]').click()
+time.sleep(1)
+going=browser.find_element_by_css_selector('table.BigTable tr:nth-child(16) td.Button_TD_TypeA:nth-child(1) a:nth-child(1) div:nth-child(1) > b:nth-child(1)').click()
+time.sleep(1)
+goingeki=browser.find_element_by_xpath('/html[1]/body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/table[3]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[1]/td[1]/form[1]/table[1]/tbody[1]/tr[1]/td[1]/a[1]/div[1]').click()
+time.sleep(1)
+
+
+#數字為日期參數
+goingdate=browser.find_element_by_xpath("//div[contains(text(),'{0}')]".format(input("請輸入去程日期:"))).click()
+
+#=====================================發車時段==============================
+
+#8:00~12:00 
+goingtime=browser.find_element_by_xpath('/html[1]/body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/table[3]/tbody[1]/tr[3]/td[1]/table[1]/tbody[1]/tr[7]/td[1]/a[1]/div[1]/img[1]').click()
+time.sleep(1)               
+                    #=========================================
+                    #=========================================
+#時段隨意，先搶先贏
+
+departuretime=["//div[contains(text(),'08:30')]","//div[contains(text(),'08:45')]",\
+   "//div[contains(text(),'09:30')]","//div[contains(text(),'09:45')]",\
+   "//div[contains(text(),'10:30')]"]
+    
+for i in departuretime:      
+    if browser.find_element_by_xpath(i).is_enabled() :
+        browser.find_element_by_xpath(i).click()
+        time.sleep(1)
+        break
+    else:
+        pass
+
+                    #=========================================               
+#來回票
+reticket=["SeatBookingRadio_11","SeatBookingRadio_9","SeatBookingRadio_19",\
+          "SeatBookingRadio_7","SeatBookingRadio_5","SeatBookingRadio_16",\
+        "SeatBookingRadio_18_div","SeatBookingRadio_21"]
+
+
+
+if browser.find_element_by_xpath("//body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/form[1]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[12]/td[7]/table[1]/tbody[1]/tr[1]/td[1]/img[1]").is_enabled():
+   browser.find_element_by_xpath("//body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/form[1]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[12]/td[7]/table[1]/tbody[1]/tr[1]/td[1]/img[1]").click()
+   browser.find_element_by_id("image_submit").click()
+   time.sleep(1)
+   for i in reticket:
+       try:
+           if browser.find_element_by_id(i).is_enabled() :
+              browser.find_element_by_id(i).click()
+              browser.find_element_by_id("image_submit").click()
+              time.sleep(1)
+              #選擇回程日期時間，變數為日期 最久日期約為今日日期+16天
+              browser.find_element_by_xpath("//div[contains(text(),'{0}')]".format(input("請輸入回程日期:"))).click()
+              time.sleep(1)
+              #回程時段 
+              browser.find_element_by_xpath("//tbody/tr[13]/td[1]/a[1]/div[1]/img[1]").click()
+              time.sleep(1)
+              #時間為變數 20分鐘一班車，2300/2330 為終電
+              browser.find_element_by_xpath("//div[contains(text(),'23:30')]").click()
+              time.sleep(1)
+              
+              for j in reticket:
+                  if browser.find_element_by_id(j).is_enabled() :
+                      browser.find_element_by_id(j).click()
+                      browser.find_element_by_id("image_submit").click()
+                      time.sleep(2)
+                      browser.find_element_by_xpath("//img[@id='image_submit']").click()
+                      print("搶票成功，請利用身分字號與電話末6碼取票")
+                      break
+                  else:
+                      pass
+           else:
+               print('沒有位子喔')
+               pass
+       except:
+             pass
+
+else:
+    browser.find_element_by_xpath("//body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/form[1]/table[1]/tbody[1]/tr[4]/td[1]/table[1]/tbody[1]/tr[3]/td[7]/table[1]/tbody[1]/tr[1]/td[1]/img[1]").click()
+    browser.find_element_by_id("image_submit").click()
+    for i in reticket:
+       if browser.find_element_by_id(i).is_enabled() :
+          browser.find_element_by_id(i).click()
+          browser.find_element_by_id("image_submit").click()
+          time.sleep(2)
+          browser.find_element_by_xpath("//img[@id='image_submit']").click()
+          print(browser.find_element_by_xpath("//body[1]/center[1]/table[1]/tbody[1]/tr[2]/td[2]/form[1]/table[1]/tbody[1]/tr[2]/td[1]"))
+          break
+       else:
+          pass
+
+
+    
+browser.find_element_by_xpath("//img[@id='image_submit']").click()
+
+
+
+
+
+                      #=========================================
+                    
+                    
+                    
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
