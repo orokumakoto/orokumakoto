@@ -1,0 +1,14 @@
+<!-- {{newslist.0.0}} -->
+
+<H1> 查詢新聞資料列表</H1>
+
+<a href="/">重新查詢 </a> <p>
+
+<table border=1>
+
+<tr> <th>新聞標題</th><th>新聞連結</th><th>新聞日期</th> </tr>
+{%for i in newslist %}
+	<tr> <td>{{i.0}}</td><td><a href="{{i.1}}">網路連結</a></td><td>{{i.2}}</td> </tr>
+{% endfor %}	
+</table>
+<p>
