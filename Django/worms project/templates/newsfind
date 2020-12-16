@@ -1,0 +1,11 @@
+<form action="\" method="POST">
+
+{% csrf_token%}
+
+<input type=radio name=url value="udn"  checked>聯合新聞網<br>
+<input type=radio name=url value="new"  >新新聞<br>
+<input type=radio name=url value="kimo"  >奇摩新聞<p>
+{{postform}}
+<p>
+<input type=submit value="送出">
+</form>
