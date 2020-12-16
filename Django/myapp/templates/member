@@ -1,0 +1,9 @@
+<body>
+<h1>
+<a href="http://127.0.0.1:8000/memberCreate">會員新增</a><p>
+<a href="http://127.0.0.1:8000/memberUpdate">會員更新</a><p>
+<a href="http://127.0.0.1:8000/memberDelete">會員刪除</a><p>
+<a href="http://127.0.0.1:8000/memberList">會員全部查詢</a><p>
+<a href="http://127.0.0.1:8000/memberListone">會員個人查詢</a><p>
+</h1>
+</body>
