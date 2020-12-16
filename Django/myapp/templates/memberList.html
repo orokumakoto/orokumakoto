@@ -1,0 +1,31 @@
+<head>
+<script type="text/javascript" language="JavaScript">
+		function dbconfirm()
+		{
+		return confirm("確定要刪除嗎?");
+		}
+</script>
+</head>
+
+
+
+
+<body>
+<!-- templates 不支持 range()的程式碼 -->
+<table border = 1>
+
+<tr height = "33px">
+	<th width = "100px" >name</th> <th width = "100px">tel</th> <th width = "100px">addr</th> <th width = "100px"></th>
+</tr height = "33px">
+
+<tr>
+
+{% for member in data %}
+	<td>{{member.1}}</td><td>{{member.2}}</td><td>{{member.3}}</td><td><a href="/memberUpdate/{{member.0}}">修改</a><br>    
+	<a onclick="return dbconfirm()" href="/memberDelete/{{member.0}}">刪除</a></td>
+
+</tr>
+{% endfor %}
+
+</table>
+</body>

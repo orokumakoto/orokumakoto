@@ -1,0 +1,28 @@
+<head>
+<script type="text/javascript" language="JavaScript">
+		function dbconfirm()
+		{
+		return confirm("確定要更改嗎?");
+		}
+</script>
+</head>
+
+<body>
+
+<h1>修改會員資料</h1>
+
+<form action="\memberUpdate\{{data.0}}" method="post">
+{% csrf_token%}
+
+
+修改 Name<input type="text" name="name" value="{{data.1}}"><p>
+修改 Tel<input type="text" name="tel" value="{{data.2}}"><p>
+修改 Addr<input type="text" name="addr" value="{{data.3}}"><p>
+
+
+<input onclick="return dbconfirm()" type="submit" value="送出表單">
+<input type="reset" value="重設">
+</form>
+
+
+</body>

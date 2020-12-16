@@ -1,0 +1,23 @@
+<body>
+<!-- {% if score >= 85 %} -->
+<!-- <h1>上流社會</h1> -->
+<!-- {% elif score >= 60 %} -->
+<!-- <h1>中產階級</h1> -->
+<!-- {% else %} -->
+<!-- <h1><font color = "red">千萬分之一馬雲</font></h1> -->
+<!-- {% endif %} -->
+
+{{a}}<p>
+{% for i in a %}
+第{{forloop.counter}}筆資料=====name:{{i.name}},age:{{i.age}}<br>
+
+{% empty %}
+沒東西。
+
+{% endfor %}
+
+{% for i in c %}
+第{{i}}筆資料<br>
+{% endfor %}
+
+</body>

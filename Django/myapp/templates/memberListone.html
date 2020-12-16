@@ -1,0 +1,38 @@
+<body>
+<h1>會員資料查詢</h1>
+
+<form action="\memberListone\" method = "post">
+    {% csrf_token %}
+
+    <input type="radio" name="searchselect"  value="name" checked>姓名查詢<p>
+    <input type="radio" name="searchselect"  value="tel">電話查詢<p>
+    <input type="radio" name="searchselect"  value="addr">地址查詢<p>
+    <input type = "text" name= "word" ><p>
+
+
+    <input type = "submit" value= "查詢" ><p>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>

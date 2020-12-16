@@ -1,0 +1,16 @@
+<body>
+
+<h1>新增會員資料</h1>
+
+<form action="\memberCreate\" method="post">
+{% csrf_token%}
+
+ID   {{post.id}}   <p>
+Name {{post.name}} <p>
+Tel  {{post.tel}}  <p>
+Addr {{post.addr}} <p>
+
+
+<input type="submit" value="送出表單">
+</form>
+</body>
